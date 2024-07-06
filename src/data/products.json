@@ -38,5 +38,15 @@
     "code": "COD446",
     "stock": 40,
     "status": true
+  },
+  {
+    "id": 5,
+    "title": "Nombre del Producto 3",
+    "description": "Descripción del Producto 3",
+    "price": 330,
+    "thumbnail": "ruta/a/la/imagen3.jpg",
+    "code": "COD336",
+    "stock": 40,
+    "status": true
   }
 ]

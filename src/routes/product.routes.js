@@ -13,10 +13,10 @@ router.get("/", async (req, res) => {
     }
 });
 
-router.get("/:pid", async (req, res) => {
-    const { pid } = req.params;
+router.get("/:id", async (req, res) => {
+    const { id } = req.params;
     try {
-        const product = await productManager.getProductsById(Number(pid));
+        const product = await productManager.getProductsById(id);
         if (!product) {
             return res.status(404).json({ error: "Producto no encontrado" });
         }
@@ -32,7 +32,7 @@ router.post("/", async (req, res) => {
         const product = new Product(title, description, price, thumbnail, code, stock);
         const newProduct = await productManager.addProduct(product);
         
-// Emitir evento WebSocket para nuevo producto
+        // Emitir evento WebSocket para nuevo producto
         req.io.emit("productAdded", newProduct);
         
         res.status(201).json(newProduct);
@@ -41,14 +41,13 @@ router.post("/", async (req, res) => {
     }
 });
 
-
 router.put("/:id", async (req, res) => {
     const { id } = req.params;
     const { title, description, price, thumbnail, code, stock, status } = req.body;
     try {
-        const updatedProduct = await productManager.updateProduct(Number(id), { title, description, price, thumbnail, code, stock, status });
+        const updatedProduct = await productManager.updateProduct(id, { title, description, price, thumbnail, code, stock, status });
         
-// Emitir evento WebSocket para producto actualizado
+        // Emitir evento WebSocket para producto actualizado
         req.io.emit("productUpdated", updatedProduct);
         
         res.json(updatedProduct);
@@ -57,13 +56,12 @@ router.put("/:id", async (req, res) => {
     }
 });
 
-
 router.delete("/:id", async (req, res) => {
     const { id } = req.params;
     try {
-        const deletedProduct = await productManager.deleteProduct(Number(id));
+        const deletedProduct = await productManager.deleteProduct(id);
 
-// Emitir evento WebSocket para producto eliminado
+        // Emitir evento WebSocket para producto eliminado
         req.io.emit("productDeleted", id);
         
         res.json({ message: `Producto con ID ${id} eliminado`, product: deletedProduct });

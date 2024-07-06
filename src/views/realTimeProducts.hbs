@@ -12,8 +12,9 @@
         <h1>Lista de Productos en tiempo real</h1>
         <ul>
             {{#each products}}
-            <li id={{id}}>{{title}} - ${{price}} - {{description}} - codigo: {{code}} - stock: {{stock}}</li>
+            <li id={{_id}}>{{title}} - ${{price}} - {{description}} - codigo: {{code}} - stock: {{stock}}</li>
             {{/each}}
+
         </ul>
     </div>
 
